@@ -1,0 +1,71 @@
+:host {
+  display: block;
+}
+
+.config-field {
+  position: relative;
+  border-radius: 8px;
+}
+
+/* Dirty (unsaved) indicator: accent left border + a small badge. */
+.config-field.edited {
+  border-left: 3px solid var(--mat-sys-primary);
+  padding-left: 12px;
+  margin-left: -15px;
+}
+
+.edited-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 8px 2px 4px;
+  border-radius: 9999px;
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+  font: var(--mat-sys-label-small);
+  z-index: 1;
+}
+
+.edited-badge mat-icon {
+  font-size: 14px;
+  width: 14px;
+  height: 14px;
+}
+
+.full {
+  width: 100%;
+}
+
+.toggle-field {
+  padding: 8px 0 20px;
+}
+
+.color-field {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0 20px;
+}
+
+.color-label {
+  font: var(--mat-sys-body-large);
+  color: var(--mat-sys-on-surface);
+}
+
+.color-field input[type='color'] {
+  width: 48px;
+  height: 36px;
+  border: 1px solid var(--mat-sys-outline);
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.color-hex {
+  font-family: monospace;
+  color: var(--mat-sys-on-surface-variant);
+}

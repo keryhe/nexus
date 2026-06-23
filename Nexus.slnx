@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="Keryhe.Nexus.Api/Keryhe.Nexus.Api.csproj" />
+  <Project Path="Keryhe.Nexus.Api.Host/Keryhe.Nexus.Api.Host.csproj" />
+  <Project Path="Keryhe.Nexus.Extensions/Keryhe.Nexus.Extensions.csproj" />
+  <Project Path="Keryhe.Nexus.MySql/Keryhe.Nexus.MySql.csproj" />
+  <Project Path="Keryhe.Nexus.Npgsql/Keryhe.Nexus.Npgsql.csproj" />
+  <Project Path="Keryhe.Nexus.Sqlite/Keryhe.Nexus.Sqlite.csproj" />
+  <Project Path="Keryhe.Nexus.SqlServer/Keryhe.Nexus.SqlServer.csproj" />
+  <Project Path="Keryhe.Nexus/Keryhe.Nexus.csproj" />
+</Solution>

@@ -1,0 +1,31 @@
+.nexus-tree {
+  background: transparent;
+  padding: 8px 0;
+}
+
+mat-tree-node {
+  min-height: 44px;
+  padding-right: 8px;
+}
+
+.toggle-spacer {
+  visibility: hidden;
+}
+
+.node-label {
+  flex: 1;
+  cursor: pointer;
+  padding: 10px 12px;
+  border-radius: var(--mat-sys-corner-full, 9999px);
+  font: var(--mat-sys-label-large);
+  color: var(--mat-sys-on-surface);
+}
+
+.node-label:hover {
+  background: var(--mat-sys-surface-container-high);
+}
+
+.node-label.selected {
+  background: var(--mat-sys-secondary-container);
+  color: var(--mat-sys-on-secondary-container);
+}

@@ -1,0 +1,28 @@
+<mat-toolbar color="primary" class="app-bar">
+  <button mat-icon-button (click)="drawer.toggle()" aria-label="Toggle navigation">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="app-title">Nexus Configuration</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="theme.toggle()"
+          [attr.aria-label]="theme.isDark() ? 'Switch to light theme' : 'Switch to dark theme'">
+    <mat-icon>{{ theme.isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="shell">
+  <mat-sidenav #drawer mode="side" opened class="drawer">
+    @if (loading) {
+      <div class="drawer-loading">
+        <mat-progress-spinner mode="indeterminate" diameter="32" />
+      </div>
+    } @else {
+      <nexus-sidebar [categories]="categories" [selectedId]="selectedCategory?.id ?? null"
+                     (categorySelected)="onCategorySelected($event)" />
+    }
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <nexus-content [category]="selectedCategory" />
+  </mat-sidenav-content>
+</mat-sidenav-container>

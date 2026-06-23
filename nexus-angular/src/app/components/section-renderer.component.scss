@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+.section-card {
+  margin-bottom: 16px;
+}
+
+.tab-body {
+  padding: 24px 8px 8px;
+}
+
+/* Master/detail layout for the `tab-v` section type: a Material nav list selects
+   which child section's controls are shown in the detail pane. */
+.list-detail {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.list-detail__nav {
+  flex: 0 0 220px;
+  border-right: 1px solid var(--mat-sys-outline-variant);
+  padding-top: 0;
+}
+
+.list-detail__content {
+  flex: 1;
+  min-width: 0;
+  padding-top: 8px;
+}

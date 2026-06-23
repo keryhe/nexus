@@ -1,0 +1,21 @@
+<mat-tree #tree [dataSource]="treeData" [childrenAccessor]="childrenAccessor" class="nexus-tree">
+  <!-- Leaf node -->
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding matTreeNodePaddingIndent="16">
+    <button mat-icon-button disabled class="toggle-spacer"></button>
+    <span class="node-label" [class.selected]="node.category.id === selectedId"
+          (click)="select(node.category)">
+      {{ node.category.displayName }}
+    </span>
+  </mat-tree-node>
+
+  <!-- Expandable node -->
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding matTreeNodePaddingIndent="16">
+    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.category.displayName">
+      <mat-icon>{{ tree.isExpanded(node) ? 'expand_more' : 'chevron_right' }}</mat-icon>
+    </button>
+    <span class="node-label" [class.selected]="node.category.id === selectedId"
+          (click)="select(node.category)">
+      {{ node.category.displayName }}
+    </span>
+  </mat-tree-node>
+</mat-tree>

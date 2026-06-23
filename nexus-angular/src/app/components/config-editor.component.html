@@ -1,0 +1,120 @@
+<div class="config-field" [class.edited]="isDirty">
+  @if (isDirty) {
+    <span class="edited-badge" aria-label="Edited (unsaved)">
+      <mat-icon>edit</mat-icon> Edited
+    </span>
+  }
+
+  @switch (type) {
+    @case ('bool') {
+      <div class="toggle-field">
+        <mat-slide-toggle [(ngModel)]="boolValue" (change)="onBoolChange()" color="primary">
+          {{ config.displayName }}
+        </mat-slide-toggle>
+      </div>
+    }
+
+    @case ('int') {
+      <mat-form-field class="full">
+        <mat-label>{{ config.displayName }}</mat-label>
+        <input matInput type="number" step="1" [(ngModel)]="numberValue" (blur)="onNumberSave()" />
+      </mat-form-field>
+    }
+
+    @case ('float') {
+      <mat-form-field class="full">
+        <mat-label>{{ config.displayName }}</mat-label>
+        <input matInput type="number" step="any" [(ngModel)]="numberValue" (blur)="onNumberSave()" />
+      </mat-form-field>
+    }
+
+    @case ('date') {
+      <mat-form-field class="full">
+        <mat-label>{{ config.displayName }}</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="dateValue" (dateChange)="onDateChange()" />
+        <mat-datepicker-toggle matIconSuffix [for]="picker" />
+        <mat-datepicker #picker />
+      </mat-form-field>
+    }
+
+    @case ('time') {
+      <mat-form-field class="full">
+        <mat-label>{{ config.displayName }}</mat-label>
+        <input matInput type="time" step="1" [(ngModel)]="timeValue" (change)="onTimeChange()" />
+      </mat-form-field>
+    }
+
+    @case ('datetime') {
+      <mat-form-field class="full">
+        <mat-label>{{ config.displayName }}</mat-label>
+        <input matInput type="datetime-local" [(ngModel)]="datetimeValue" (change)="onDatetimeChange()" />
+      </mat-form-field>
+    }
+
+    @case ('color') {
+      <div class="color-field">
+        <span class="color-label">{{ config.displayName }}</span>
+        <input type="color" [(ngModel)]="colorValue" (change)="onColorChange()" aria-label="Color picker" />
+        <span class="color-hex">{{ colorValue }}</span>
+      </div>
+    }
+
+    @case ('dropdown') {
+      <mat-form-field class="full">
+        <mat-label>{{ config.displayName }}</mat-label>
+        <mat-select [(ngModel)]="editValue" (selectionChange)="onDropdownChange()"
+                    (openedChange)="onDropdownOpened($event)">
+          @for (item of dropdownItems; track item.id) {
+            <mat-option [value]="item.value">{{ item.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
+
+    @case ('json') {
+      <mat-form-field class="full">
+        <mat-label>{{ config.displayName }}</mat-label>
+        <textarea matInput rows="5" [(ngModel)]="editValue" (blur)="onTextSave()"></textarea>
+        @if (isStringType) {
+          <button matSuffix mat-icon-button
+                  [matTooltip]="editIsEncrypted ? 'Encrypted — click to store as plain text' : 'Not encrypted — click to encrypt'"
+                  [color]="editIsEncrypted ? 'warn' : undefined"
+                  (click)="toggleEncrypted()">
+            <mat-icon>{{ editIsEncrypted ? 'lock' : 'lock_open' }}</mat-icon>
+          </button>
+        }
+      </mat-form-field>
+    }
+
+    @case ('multiline') {
+      <mat-form-field class="full">
+        <mat-label>{{ config.displayName }}</mat-label>
+        <textarea matInput rows="3" [(ngModel)]="editValue" (blur)="onTextSave()"></textarea>
+        @if (isStringType) {
+          <button matSuffix mat-icon-button
+                  [matTooltip]="editIsEncrypted ? 'Encrypted — click to store as plain text' : 'Not encrypted — click to encrypt'"
+                  [color]="editIsEncrypted ? 'warn' : undefined"
+                  (click)="toggleEncrypted()">
+            <mat-icon>{{ editIsEncrypted ? 'lock' : 'lock_open' }}</mat-icon>
+          </button>
+        }
+      </mat-form-field>
+    }
+
+    @default {
+      <!-- guid, url, email, string and any unknown type -->
+      <mat-form-field class="full">
+        <mat-label>{{ config.displayName }}</mat-label>
+        <input matInput [type]="textInputType" [(ngModel)]="editValue" (blur)="onTextSave()" />
+        @if (isStringType) {
+          <button matSuffix mat-icon-button
+                  [matTooltip]="editIsEncrypted ? 'Encrypted — click to store as plain text' : 'Not encrypted — click to encrypt'"
+                  [color]="editIsEncrypted ? 'warn' : undefined"
+                  (click)="toggleEncrypted()">
+            <mat-icon>{{ editIsEncrypted ? 'lock' : 'lock_open' }}</mat-icon>
+          </button>
+        }
+      </mat-form-field>
+    }
+  }
+</div>

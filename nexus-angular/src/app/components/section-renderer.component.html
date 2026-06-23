@@ -1,0 +1,81 @@
+@if (visibleSections.length === 0) {
+  <!-- Leaf: render configs that belong directly to the parent section -->
+  @for (config of directConfigs; track config.id) {
+    <nexus-config-editor [config]="config" />
+  }
+} @else {
+  @switch (layout) {
+    @case ('tab-h') {
+      <mat-tab-group>
+        @for (sec of visibleSections; track sec.id) {
+          <mat-tab [label]="sec.displayName">
+            <div class="tab-body">
+              <nexus-section-renderer
+                [sections]="sections"
+                [configs]="configs"
+                [parentSectionType]="sec.sectionType"
+                [parentSectionId]="sec.id" />
+            </div>
+          </mat-tab>
+        }
+      </mat-tab-group>
+    }
+
+    @case ('tab-v') {
+      <div class="list-detail">
+        <mat-nav-list class="list-detail__nav">
+          @for (sec of visibleSections; track sec.id; let i = $index) {
+            <a mat-list-item [activated]="i === selectedListIndex" (click)="selectedListIndex = i">
+              {{ sec.displayName }}
+            </a>
+          }
+        </mat-nav-list>
+        <div class="list-detail__content">
+          @for (sec of visibleSections; track sec.id; let i = $index) {
+            @if (i === selectedListIndex) {
+              <nexus-section-renderer
+                [sections]="sections"
+                [configs]="configs"
+                [parentSectionType]="sec.sectionType"
+                [parentSectionId]="sec.id" />
+            }
+          }
+        </div>
+      </div>
+    }
+
+    @case ('accordion') {
+      <mat-accordion multi>
+        @for (sec of visibleSections; track sec.id) {
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{ sec.displayName }}</mat-panel-title>
+            </mat-expansion-panel-header>
+            <nexus-section-renderer
+              [sections]="sections"
+              [configs]="configs"
+              [parentSectionType]="sec.sectionType"
+              [parentSectionId]="sec.id" />
+          </mat-expansion-panel>
+        }
+      </mat-accordion>
+    }
+
+    @default {
+      @for (sec of visibleSections; track sec.id) {
+        <mat-card class="section-card" appearance="outlined">
+          <mat-card-header>
+            <mat-card-title>{{ sec.displayName }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <nexus-section-renderer
+              [sections]="sections"
+              [configs]="configs"
+              [parentSectionType]="sec.sectionType"
+              [parentSectionId]="sec.id" />
+          </mat-card-content>
+        </mat-card>
+      }
+    }
+  }
+}

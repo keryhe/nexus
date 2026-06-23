@@ -1,0 +1,31 @@
+@if (!category) {
+  <p class="empty-state">Select a category from the navigation drawer.</p>
+} @else {
+  <h1 class="mat-headline-small content-title">{{ category.displayName }}</h1>
+
+  @if (store.hasChanges()) {
+    <div class="action-bar">
+      <span class="action-bar__count">
+        {{ store.dirtyCount() }} unsaved change{{ store.dirtyCount() === 1 ? '' : 's' }}
+      </span>
+      <span class="spacer"></span>
+      <button mat-stroked-button (click)="cancel()" [disabled]="saving">Cancel</button>
+      <button mat-flat-button color="primary" (click)="save()" [disabled]="saving">
+        @if (saving) {
+          <mat-icon class="spin">progress_activity</mat-icon>
+        }
+        Save
+      </button>
+    </div>
+  }
+
+  @if (loading) {
+    <mat-progress-spinner mode="indeterminate" diameter="40" />
+  } @else {
+    <nexus-section-renderer
+      [sections]="sections"
+      [configs]="configs"
+      [parentSectionType]="category.sectionType"
+      [parentSectionId]="null" />
+  }
+}
